@@ -1,6 +1,5 @@
 package hei.school.gasstation.repository;
 
-import hei.school.gasstation.model.ProductTemplate;
 import hei.school.gasstation.model.Station;
 
 import java.sql.*;
@@ -107,6 +106,5 @@ public class StationCrudOperation implements CrudOperation<Station>{
             preparedStatement.setObject(1, id);
             preparedStatement.executeUpdate();
         }
-    }
     }
 }
