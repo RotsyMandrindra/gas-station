@@ -25,4 +25,7 @@ public class StationService {
     public void deleteStation(UUID id) throws SQLException {
         stationCrudOperation.delete(id);
     }
+    public List<Station> getStationById(UUID id) throws SQLException {
+        return stationCrudOperation.findById(id);
+    }
 }

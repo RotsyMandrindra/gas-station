@@ -28,4 +28,7 @@ public class ProductService {
     public void deleteProduct(UUID id) throws SQLException {
         productCrudOperation.delete(id);
     }
+    public List<Product> getProductById(UUID id) throws SQLException {
+        return productCrudOperation.findById(id);
+    }
 }

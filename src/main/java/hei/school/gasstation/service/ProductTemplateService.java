@@ -1,6 +1,7 @@
 package hei.school.gasstation.service;
 
 import hei.school.gasstation.model.ProductTemplate;
+import hei.school.gasstation.model.Station;
 import hei.school.gasstation.repository.ProductTemplateCrudOperation;
 import java.sql.SQLException;
 import java.util.List;
@@ -24,5 +25,8 @@ public class ProductTemplateService {
     }
     public void deleteProductTemplate(UUID id) throws SQLException {
         productTemplateCrudOperation.delete(id);
+    }
+    public List<ProductTemplate> getProductTemplateById(UUID id) throws SQLException {
+        return productTemplateCrudOperation.findById(id);
     }
 }
