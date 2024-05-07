@@ -45,7 +45,6 @@ public class ProductCrudOperation implements CrudOperation<Product>{
                     product.setProductId(resultSet.getObject("product_id", UUID.class));
                     product.setSuppliedDate((Instant) resultSet.getObject("supplied_date"));
                     product.setProductTemplateId(resultSet.getObject("product_template_id", UUID.class));
-
                     productById.add(product);
                 }
             }
