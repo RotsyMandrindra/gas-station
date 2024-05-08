@@ -13,9 +13,6 @@ public class ProductTemplate {
     private UUID productTemplateId;
     private String productName;
     private double productPrice;
-    private double quantitySold;
-    private double remainingQuantity;
-    private double productAmount;
     private float evaporationRate;
-    private double suppliedQuantity;
+    private UUID movementId;
 }
