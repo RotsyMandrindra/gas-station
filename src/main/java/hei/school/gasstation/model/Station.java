@@ -13,10 +13,7 @@ import java.util.UUID;
 public class Station {
     private UUID stationId;
     private String stationName;
-    private String localisation;
+    private String location;
     private String contact;
-    private int employeeNumber;
     private double totalAmountStation;
-    private Instant date;
-    private UUID productId;
 }

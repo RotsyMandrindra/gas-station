@@ -12,6 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Product {
     private UUID productId;
-    private Instant suppliedDate;
+    private UUID stationId;
     private UUID productTemplateId;
 }
