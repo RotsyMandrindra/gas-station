@@ -12,7 +12,7 @@ public class GetSumSellQuantityRepository {
     }
 
     public double getSumQuantitySell() throws SQLException{
-        String sql = "SELECT SUM(sell_quantity) AS total_sell_quantity FROM movement WHERE date = ?";
+        String sql = "SELECT SUM(sell_quantity) AS total_sell_quantity FROM movement WHERE date = ? AND type='outlet'";
         return jdbcTemplate.queryForObject(sql, Double.class);
     }
 }
