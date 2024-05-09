@@ -3,7 +3,6 @@ package hei.school.gasstation.repository;
 import hei.school.gasstation.model.Product;
 
 import java.sql.*;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,8 +23,8 @@ public class ProductCrudOperation implements CrudOperation<Product>{
             while (resultSet.next()){
             Product product = new Product();
             product.setProductId(resultSet.getObject("product_id", UUID.class));
-            product.setSuppliedDate((Instant) resultSet.getObject("supplied_date"));
             product.setProductTemplateId(resultSet.getObject("product_template_id", UUID.class));
+            product.setStationId(resultSet.getObject("station_id", UUID.class));
             allProduct.add(product);
             }
         }
@@ -43,8 +42,8 @@ public class ProductCrudOperation implements CrudOperation<Product>{
                 while (resultSet.next()) {
                     Product product = new Product();
                     product.setProductId(resultSet.getObject("product_id", UUID.class));
-                    product.setSuppliedDate((Instant) resultSet.getObject("supplied_date"));
                     product.setProductTemplateId(resultSet.getObject("product_template_id", UUID.class));
+                    product.setStationId(resultSet.getObject("station_id", UUID.class));
                     productById.add(product);
                 }
             }
@@ -54,12 +53,12 @@ public class ProductCrudOperation implements CrudOperation<Product>{
 
     @Override
     public Product save(Product toSave) throws SQLException {
-        String sql = "INSERT INTO product (product_id, supplied_date, product_template_id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO product (product_id, product_template_id, station_id) VALUES (?, ?, ?)";
 
         try (PreparedStatement insertStatement = connection.prepareStatement(sql)) {
             insertStatement.setObject(1, toSave.getProductId());
-            insertStatement.setTimestamp(2, Timestamp.from(toSave.getSuppliedDate()));
-            insertStatement.setObject(3, toSave.getProductTemplateId());
+            insertStatement.setObject(2, toSave.getProductTemplateId());
+            insertStatement.setObject(3, toSave.getStationId());
             insertStatement.executeUpdate();
         }
         return toSave;
@@ -67,11 +66,11 @@ public class ProductCrudOperation implements CrudOperation<Product>{
 
     @Override
     public Product update(UUID id, Product toUpdate) throws SQLException {
-        String sql = "UPDATE product SET supplied_date = ?, product_template_id = ? WHERE product_id = ?";
+        String sql = "UPDATE product SET product_template_id = ?, station_id=? WHERE product_id = ?";
 
         try (PreparedStatement updateSql = connection.prepareStatement(sql)) {
-            updateSql.setTimestamp(1, Timestamp.from(toUpdate.getSuppliedDate()));
-            updateSql.setObject(2, toUpdate.getProductTemplateId());
+            updateSql.setObject(1, toUpdate.getProductTemplateId());
+            updateSql.setObject(2, toUpdate.getStationId());
             updateSql.setObject(3, id);
             updateSql.executeUpdate();
         }
