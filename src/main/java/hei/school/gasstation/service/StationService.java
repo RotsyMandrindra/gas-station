@@ -2,11 +2,12 @@ package hei.school.gasstation.service;
 
 import hei.school.gasstation.model.Station;
 import hei.school.gasstation.repository.StationCrudOperation;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
-
+@Service
 public class StationService {
     private StationCrudOperation stationCrudOperation;
 

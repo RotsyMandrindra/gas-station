@@ -1,18 +1,19 @@
 package hei.school.gasstation.repository;
 
 import hei.school.gasstation.model.Sale;
+import lombok.AllArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
+@Repository
+@AllArgsConstructor
 public class SaleCrudOperation implements CrudOperation<Sale>{
     private Connection connection;
-
-    public SaleCrudOperation(Connection connection) {
-        this.connection = connection;
-    }
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Sale> findAll() throws SQLException {
@@ -93,5 +94,9 @@ public class SaleCrudOperation implements CrudOperation<Sale>{
             preparedStatement.setObject(1, id);
             preparedStatement.executeUpdate();
         }
+    }
+    public double getSumQuantitySell() throws SQLException{
+        String sql = "SELECT SUM(sell_quantity) AS total_sell_quantity FROM movement WHERE date = ? AND type='outlet'";
+        return jdbcTemplate.queryForObject(sql, Double.class);
     }
 }

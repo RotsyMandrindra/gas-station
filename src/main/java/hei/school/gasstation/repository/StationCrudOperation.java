@@ -1,12 +1,13 @@
 package hei.school.gasstation.repository;
 
 import hei.school.gasstation.model.Station;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
+@Repository
 public class StationCrudOperation implements CrudOperation<Station>{
     private Connection connection;
 

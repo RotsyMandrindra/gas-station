@@ -1,18 +1,19 @@
 package hei.school.gasstation.repository;
 
 import hei.school.gasstation.model.Procurement;
+import lombok.AllArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
+@Repository
+@AllArgsConstructor
 public class ProcurementCrudOperation implements CrudOperation<Procurement>{
     private Connection connection;
-
-    public ProcurementCrudOperation(Connection connection) {
-        this.connection = connection;
-    }
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Procurement> findAll() throws SQLException {
@@ -93,5 +94,9 @@ public class ProcurementCrudOperation implements CrudOperation<Procurement>{
             preparedStatement.setObject(1, id);
             preparedStatement.executeUpdate();
         }
+    }
+    public double getSumRemainingQuantity() throws SQLException{
+        String sql = "SELECT SUM(remaining_quantity) AS total_remaining_quantity FROM movement WHERE date = ?";
+        return jdbcTemplate.queryForObject(sql, Double.class);
     }
 }

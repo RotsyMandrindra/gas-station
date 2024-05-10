@@ -1,12 +1,13 @@
 package hei.school.gasstation.repository;
 
 import hei.school.gasstation.model.ProductTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
+@Repository
 public class ProductTemplateCrudOperation implements CrudOperation<ProductTemplate>{
     private Connection connection;
 
@@ -25,7 +26,6 @@ public class ProductTemplateCrudOperation implements CrudOperation<ProductTempla
                 productTemplate.setProductTemplateId(resultSet.getObject("product_template_id", UUID.class));
                 productTemplate.setProductName(resultSet.getString("product_name"));
                 productTemplate.setProductPrice(resultSet.getDouble("product_price"));
-                productTemplate.setEvaporationRate(resultSet.getFloat("evaporation_rate"));
                 productTemplate.setMovementId(resultSet.getObject("movement_id", UUID.class));
                 allProductTemplate.add(productTemplate);
             }
@@ -45,7 +45,6 @@ public class ProductTemplateCrudOperation implements CrudOperation<ProductTempla
                     productTemplate.setProductTemplateId(resultSet.getObject("product_template_id", UUID.class));
                     productTemplate.setProductName(resultSet.getString("product_name"));
                     productTemplate.setProductPrice(resultSet.getDouble("product_price"));
-                    productTemplate.setEvaporationRate(resultSet.getFloat("evaporation_rate"));
                     productTemplate.setMovementId(resultSet.getObject("movement_id", UUID.class));
                     allProductTemplateById.add(productTemplate);
                 }
@@ -62,8 +61,7 @@ public class ProductTemplateCrudOperation implements CrudOperation<ProductTempla
             insertStatement.setObject(1, toSave.getProductTemplateId());
             insertStatement.setString(2, toSave.getProductName());
             insertStatement.setDouble(3, toSave.getProductPrice());
-            insertStatement.setFloat(4, toSave.getEvaporationRate());
-            insertStatement.setObject(5, toSave.getMovementId());
+            insertStatement.setObject(4, toSave.getMovementId());
             insertStatement.executeUpdate();
         }
         return toSave;
@@ -71,12 +69,11 @@ public class ProductTemplateCrudOperation implements CrudOperation<ProductTempla
 
     @Override
     public ProductTemplate update(UUID id, ProductTemplate toUpdate) throws SQLException {
-        String sql = "UPDATE product_template SET product_name=?, product_price=?, evaporation_rate=?, movement_id=? WHERE product_template_id = ?";
+        String sql = "UPDATE product_template SET product_name=?, product_price=?, movement_id=? WHERE product_template_id = ?";
 
         try (PreparedStatement updateSql = connection.prepareStatement(sql)) {
             updateSql.setString(1, toUpdate.getProductName());
             updateSql.setDouble(2, toUpdate.getProductPrice());
-            updateSql.setFloat(3, toUpdate.getEvaporationRate());
             updateSql.setObject(4, toUpdate.getMovementId());
             updateSql.setObject(5, id);
             updateSql.executeUpdate();

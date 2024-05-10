@@ -2,17 +2,17 @@ package hei.school.gasstation.service;
 
 import hei.school.gasstation.model.Sale;
 import hei.school.gasstation.repository.SaleCrudOperation;
+import lombok.AllArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
-
+@Service
+@AllArgsConstructor
 public class SaleService {
     private SaleCrudOperation saleCrudOperation;
-
-    public SaleService(SaleCrudOperation saleCrudOperation) {
-        this.saleCrudOperation = saleCrudOperation;
-    }
     public List<Sale> getAllSale() throws SQLException {
         return saleCrudOperation.findAll();
     }
@@ -27,5 +27,8 @@ public class SaleService {
     }
     public List<Sale> getSaleById(UUID id) throws SQLException {
         return saleCrudOperation.findById(id);
+    }
+    public double getSumSellQuantity() throws SQLException {
+        return saleCrudOperation.getSumQuantitySell();
     }
 }
