@@ -8,8 +8,6 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-@SuperBuilder
 public class Sale extends Movement{
     private double sellQuantity;
 }
