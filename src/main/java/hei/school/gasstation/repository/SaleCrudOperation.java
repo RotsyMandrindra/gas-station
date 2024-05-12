@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -95,7 +96,7 @@ public class SaleCrudOperation implements CrudOperation<Sale>{
             preparedStatement.executeUpdate();
         }
     }
-    public double getSumQuantitySellBetweenDates(Date startDate, Date endDate) throws SQLException {
+    public double getSumQuantitySellBetweenDates(Instant startDate, Instant endDate) throws SQLException {
         String sql = "SELECT SUM(sell_quantity) AS total_sell_quantity FROM movement WHERE date BETWEEN? AND? AND type='outlet'";
         return jdbcTemplate.queryForObject(sql, Double.class, startDate, endDate);
     }

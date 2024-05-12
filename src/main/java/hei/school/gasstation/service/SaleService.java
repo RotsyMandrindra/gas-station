@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 @Service
@@ -29,7 +30,7 @@ public class SaleService {
     public List<Sale> getSaleById(UUID id) throws SQLException {
         return saleCrudOperation.findById(id);
     }
-    public double getSumSellQuantityBetweenDates(Date startDate, Date endDate) throws SQLException {
+    public double getSumSellQuantityBetweenDates(Instant startDate, Instant endDate) throws SQLException {
         return saleCrudOperation.getSumQuantitySellBetweenDates(startDate, endDate);
     }
 }

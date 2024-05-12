@@ -31,7 +31,7 @@ public class ProcurementService {
     public List<Procurement> getProcurementById(UUID id) throws SQLException {
         return procurementCrudOperation.findById(id);
     }
-    public double getSumRemainingQuantityBetweenDates(Date startDate, Date endDate) throws SQLException{
+    public double getSumRemainingQuantityBetweenDates(Instant startDate, Instant endDate) throws SQLException{
         return procurementCrudOperation.getSumRemainingQuantityBetweenDates(startDate, endDate);
     }
 }

@@ -98,7 +98,7 @@ public class ProcurementCrudOperation implements CrudOperation<Procurement> {
         }
     }
 
-    public double getSumRemainingQuantityBetweenDates(Date startDate, Date endDate) throws SQLException {
+    public double getSumRemainingQuantityBetweenDates(Instant startDate, Instant endDate) throws SQLException {
         String sql = "SELECT SUM(remaining_quantity) AS total_remaining_quantity FROM movement WHERE date BETWEEN? AND?";
         return jdbcTemplate.queryForObject(sql, Double.class, startDate, endDate);
     }

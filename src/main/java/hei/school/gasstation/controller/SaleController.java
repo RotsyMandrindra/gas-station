@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 @RestController
@@ -60,7 +61,7 @@ public class SaleController {
         saleService.deleteSale(id);
     }
     @GetMapping("/sum_sell_quantity")
-    public double getSumSellQuantityBetweenDates(Date startDate, Date endDate) throws SQLException{
+    public double getSumSellQuantityBetweenDates(Instant startDate, Instant endDate) throws SQLException{
         return saleService.getSumSellQuantityBetweenDates(startDate, endDate);
     }
     @PostMapping("/sale")

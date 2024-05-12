@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 @RestController
@@ -55,7 +56,7 @@ public class ProcurementController {
         procurementService.deleteProcurement(id);
     }
     @GetMapping("/sum_remaining_quantity")
-    public double getSumRemainingQuantity() throws SQLException{
-        return procurementService.getSumRemainingQuantity();
+    public double getSumRemainingQuantityBetweenDates(Instant startDate, Instant endDate) throws SQLException{
+        return procurementService.getSumRemainingQuantityBetweenDates(startDate, endDate);
     }
 }
