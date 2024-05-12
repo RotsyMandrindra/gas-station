@@ -14,4 +14,5 @@ public class Product {
     private UUID productId;
     private UUID stationId;
     private UUID productTemplateId;
+    private float evaporationRate;
 }

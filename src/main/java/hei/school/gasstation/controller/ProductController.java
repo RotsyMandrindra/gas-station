@@ -4,13 +4,15 @@ import hei.school.gasstation.model.Product;
 import hei.school.gasstation.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
-
+@RestController
+@Controller
 public class ProductController {
     private ProductService productService;
 

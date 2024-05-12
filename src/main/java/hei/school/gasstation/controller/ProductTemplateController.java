@@ -4,13 +4,15 @@ import hei.school.gasstation.model.ProductTemplate;
 import hei.school.gasstation.service.ProductTemplateService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
-
+@RestController
+@Controller
 public class ProductTemplateController {
     private ProductTemplateService productTemplateService;
 
@@ -52,5 +54,10 @@ public class ProductTemplateController {
     @DeleteMapping("/product_template/{id}")
     public void deleteProductTemplate(@PathVariable("id") UUID id) throws SQLException {
         productTemplateService.deleteProductTemplate(id);
+    }
+    @PutMapping("/product_template/update_price/{id}")
+    public ResponseEntity<ProductTemplate> updateProductTemplatePrice(@PathVariable UUID id, @RequestParam("price") Double newPrice) throws SQLException {
+        ProductTemplate updatedProductTemplate = productTemplateService.updatePrice(id, newPrice);
+        return ResponseEntity.ok(updatedProductTemplate);
     }
 }

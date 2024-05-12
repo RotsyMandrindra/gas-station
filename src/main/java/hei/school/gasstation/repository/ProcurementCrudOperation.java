@@ -1,26 +1,29 @@
 package hei.school.gasstation.repository;
 
 import hei.school.gasstation.model.Procurement;
+import hei.school.gasstation.model.Product;
+import hei.school.gasstation.service.ProductService;
+import lombok.AllArgsConstructor;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-public class ProcurementCrudOperation implements CrudOperation<Procurement>{
+@Repository
+@AllArgsConstructor
+public class ProcurementCrudOperation implements CrudOperation<Procurement> {
     private Connection connection;
-
-    public ProcurementCrudOperation(Connection connection) {
-        this.connection = connection;
-    }
-
+    private JdbcTemplate jdbcTemplate;
     @Override
     public List<Procurement> findAll() throws SQLException {
         List<Procurement> allProcurement = new ArrayList<>();
         String sql = "SELECT movement_id, type, remaining_quantity, supply_quantity, date FROM movement WHERE type = 'entry'";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
-             ResultSet resultSet = preparedStatement.executeQuery()){
-            while (resultSet.next()){
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
                 Procurement procurement = new Procurement();
                 procurement.setMovementId(resultSet.getObject("movement_id", UUID.class));
                 procurement.setType(resultSet.getString("type"));
@@ -94,4 +97,10 @@ public class ProcurementCrudOperation implements CrudOperation<Procurement>{
             preparedStatement.executeUpdate();
         }
     }
+
+    public double getSumRemainingQuantityBetweenDates(Instant startDate, Instant endDate) throws SQLException {
+        String sql = "SELECT SUM(remaining_quantity) AS total_remaining_quantity FROM movement WHERE date BETWEEN? AND?";
+        return jdbcTemplate.queryForObject(sql, Double.class, startDate, endDate);
+    }
+
 }
