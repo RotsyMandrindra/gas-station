@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
@@ -28,7 +29,7 @@ public class SaleService {
     public List<Sale> getSaleById(UUID id) throws SQLException {
         return saleCrudOperation.findById(id);
     }
-    public double getSumSellQuantity() throws SQLException {
-        return saleCrudOperation.getSumQuantitySell();
+    public double getSumSellQuantityBetweenDates(Date startDate, Date endDate) throws SQLException {
+        return saleCrudOperation.getSumQuantitySellBetweenDates(startDate, endDate);
     }
 }

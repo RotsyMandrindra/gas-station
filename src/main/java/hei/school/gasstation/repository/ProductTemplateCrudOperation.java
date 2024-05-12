@@ -1,6 +1,7 @@
 package hei.school.gasstation.repository;
 
 import hei.school.gasstation.model.ProductTemplate;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Repository
 public class ProductTemplateCrudOperation implements CrudOperation<ProductTemplate>{
     private Connection connection;
+    private JdbcTemplate jdbcTemplate;
 
     public ProductTemplateCrudOperation(Connection connection) {
         this.connection = connection;
@@ -90,5 +92,10 @@ public class ProductTemplateCrudOperation implements CrudOperation<ProductTempla
             preparedStatement.setObject(1, id);
             preparedStatement.executeUpdate();
         }
+    }
+    public ProductTemplate updateProductPrice(UUID id, Double newPrice) {
+        String SQL = "UPDATE product_template SET product_price =? WHERE product_template_id =?";
+        jdbcTemplate.update(SQL, newPrice, id);
+        return null;
     }
 }

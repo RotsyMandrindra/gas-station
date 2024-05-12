@@ -55,4 +55,9 @@ public class ProductTemplateController {
     public void deleteProductTemplate(@PathVariable("id") UUID id) throws SQLException {
         productTemplateService.deleteProductTemplate(id);
     }
+    @PutMapping("/product_template/update_price/{id}")
+    public ResponseEntity<ProductTemplate> updateProductTemplatePrice(@PathVariable UUID id, @RequestParam("price") Double newPrice) throws SQLException {
+        ProductTemplate updatedProductTemplate = productTemplateService.updatePrice(id, newPrice);
+        return ResponseEntity.ok(updatedProductTemplate);
+    }
 }

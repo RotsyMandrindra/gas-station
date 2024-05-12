@@ -30,4 +30,7 @@ public class ProductTemplateService {
     public List<ProductTemplate> getProductTemplateById(UUID id) throws SQLException {
         return productTemplateCrudOperation.findById(id);
     }
+    public ProductTemplate updatePrice(UUID id, double newPrice){
+        return productTemplateCrudOperation.updateProductPrice(id, newPrice);
+    }
 }

@@ -4,7 +4,9 @@ import hei.school.gasstation.model.Procurement;
 import hei.school.gasstation.repository.ProcurementCrudOperation;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 @Service
@@ -29,7 +31,7 @@ public class ProcurementService {
     public List<Procurement> getProcurementById(UUID id) throws SQLException {
         return procurementCrudOperation.findById(id);
     }
-    public double getSumRemainingQuantity() throws SQLException{
-        return procurementCrudOperation.getSumRemainingQuantity();
+    public double getSumRemainingQuantityBetweenDates(Date startDate, Date endDate) throws SQLException{
+        return procurementCrudOperation.getSumRemainingQuantityBetweenDates(startDate, endDate);
     }
 }

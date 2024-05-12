@@ -1,6 +1,7 @@
 package hei.school.gasstation.controller;
 
 import hei.school.gasstation.model.Sale;
+import hei.school.gasstation.service.SaleActionService;
 import hei.school.gasstation.service.SaleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +17,7 @@ import java.util.UUID;
 @Controller
 public class SaleController {
     private SaleService saleService;
+    private SaleActionService saleActionService;
 
     public SaleController(SaleService saleService) {
         this.saleService = saleService;
@@ -35,7 +38,7 @@ public class SaleController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/sale")
+    @PostMapping("/sale/create")
     public Sale createSale(@RequestBody Sale toSave) throws SQLException {
         return saleService.createSale(toSave);
 
@@ -57,7 +60,11 @@ public class SaleController {
         saleService.deleteSale(id);
     }
     @GetMapping("/sum_sell_quantity")
-    public double getSumSellQuantity() throws SQLException{
-        return saleService.getSumSellQuantity();
+    public double getSumSellQuantityBetweenDates(Date startDate, Date endDate) throws SQLException{
+        return saleService.getSumSellQuantityBetweenDates(startDate, endDate);
+    }
+    @PostMapping("/sale")
+    public String sale(double sellQuantity) throws SQLException{
+        return saleActionService.getSaleRepository().sale(sellQuantity);
     }
 }
