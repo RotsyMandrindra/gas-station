@@ -5,6 +5,7 @@ import hei.school.gasstation.service.ProcurementService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -58,5 +59,9 @@ public class ProcurementController {
     @GetMapping("/sum_remaining_quantity")
     public double getSumRemainingQuantityBetweenDates(Instant startDate, Instant endDate) throws SQLException{
         return procurementService.getSumRemainingQuantityBetweenDates(startDate, endDate);
+    }
+    @Scheduled(fixedRate = 86400000)
+    public void updateQuantities() {
+        procurementService.updateRemainingQuantity();
     }
 }
